@@ -1,7 +1,9 @@
+import pickle
 from flask import Blueprint, request, jsonify
 import function as fn
 from model import db, User, Regions, Genders, ModelsPrediction, Results, Citizenship, FormOfEducation, ProfessionCode
 from functools import wraps
+import requests
 import numpy as np
 
 
@@ -168,6 +170,6 @@ def predict():
             print(e)
             return jsonify({'message': e}), 500
 
-        return jsonify({'message': {"prediction": int(y_predict), "probability": list(y_proba[0])}}), 200
+        return jsonify({'message': {"prediction": int(y_predict), "probability": [float(y_proba[0][0]), float(y_proba[0][1])]}}), 200
     except Exception as e:
         return jsonify({'message': str(e)}), 500
