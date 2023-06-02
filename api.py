@@ -1,9 +1,7 @@
-import pickle
 from flask import Blueprint, request, jsonify
 import function as fn
 from model import db, User, Regions, Genders, ModelsPrediction, Results, Citizenship, FormOfEducation, ProfessionCode
 from functools import wraps
-import requests
 import numpy as np
 
 

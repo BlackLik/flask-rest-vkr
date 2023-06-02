@@ -1,5 +1,4 @@
-import pickle
-from flask import Flask, jsonify, request
+from flask import Flask
 from api import api
 from flask_cors import CORS
 from model import db
