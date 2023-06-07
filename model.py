@@ -140,6 +140,8 @@ class Regions(db.Model):
     __tablename__ = 'regions'
     id = db.Column(db.Integer, unique=True, nullable=False, primary_key=True)
     name_region = db.Column(db.String(255), nullable=False)
+    iso = db.Column(db.String(255), nullable=True)
+    path_tag = db.Column(db.Text, nullable=True)
     region_model_prediction = db.relationship('ModelsPrediction',
                                               backref='region',
                                               lazy=True)
@@ -147,7 +149,9 @@ class Regions(db.Model):
     def to_json(self):
         return {
             'id': self.id,
-            'name_region': self.name_region
+            'name_region': self.name_region,
+            "iso": self.iso,
+            "path_tag": self.path_tag
         }
 
     def get_all(self):
