@@ -8,6 +8,7 @@ WORKDIR /backend
 ADD . /backend
 
 # Install any needed packages specified in requirements.txt
+RUN chmod +x /backend/start.sh
 RUN python -m pip install --upgrade pip
 RUN pip install psycopg2-binary
 RUN pip install requests
@@ -24,15 +25,15 @@ RUN pip install numpy
 EXPOSE 5000
 
 # Set environment varibles
-ENV FLASK_RUN_HOST = 127.0.0.1
-ENV POSTGRESQL_HOST = localhost
-ENV POSTGRESQL_PORT = 5432
-ENV POSTGRESQL_DB = spo_db
-ENV POSTGRESQL_USER = admin
-ENV POSTGRESQL_PASSWORD = Admin_123
+ENV FLASK_RUN_HOST=0.0.0.0
+ENV POSTGRESQL_HOST=localhost
+ENV POSTGRESQL_PORT=5432
+ENV POSTGRESQL_DB=spo_db
+ENV POSTGRESQL_USER=admin
+ENV POSTGRESQL_PASSWORD=Admin_123
 ENV DEBUG=0
 
 
 
 # Run the command to start uWSGI
-CMD [ "/backend/start.sh" ]
+CMD ["gunicorn", "-w", "4", "application:app", "-b", "0.0.0.0:5000"]

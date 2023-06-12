@@ -23,13 +23,11 @@ def login_required(f):
     return decorated_function
 
 
-@api.route('/', methods=['POST'])
-@login_required
+@api.route('/', methods=['GET'])
 def index():
-    data = 'active'
+    data = request.remote_addr
     # req = requests.get('http://127.0.0.1:5000/api/users')
     return jsonify({'message': data}), 200
-
 
 @api.route('/users', methods=['GET'])
 def users():
